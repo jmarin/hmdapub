@@ -3,7 +3,9 @@ val projectName = "hmdapub"
 val hmdapub = crossProject
   .settings(
     scalaVersion := "2.11.6",
-    libraryDependencies += "com.lihaoyi" %%% "utest" % "0.3.0",
+    libraryDependencies ++= Seq(
+      "com.lihaoyi" %%% "utest" % "0.3.0",
+      "com.lihaoyi" %% "upickle" % "0.2.8"),
     testFrameworks += new TestFramework("utest.runner.Framework")
   ).jsSettings(
     // JS-specific settings here
