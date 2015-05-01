@@ -33,7 +33,7 @@ object LARParser {
 
     val propertyType = s.substring(52, 53).toInt
 
-    val preapprovals = s.substring(53, 54).toInt
+    val preApprovals = s.substring(53, 54).toInt
 
     val ethnicity = s.substring(54, 55).toInt
     val coEthnicity = s.substring(55, 56).toInt
@@ -52,24 +52,40 @@ object LARParser {
     val lienStatus = s.substring(72, 73).toInt
     val sequenceNumber = s.substring(73, 80).trim
 
-    val loan = Loan(loanType, propertyType, purpose,occupancy, amount)
-    val geography = Geography(msa, state, county, tract, fips)
-    val denial = Denial(reason1, reason2, reason3)
-    val applicant = Applicant(ethnicity, coEthnicity, race1, race2, race3, race4, race5, coRace1, coRace2, coRace3, coRace4, coRace5, sex, coSex)
-
-
-
     LoanApplicationRegister(
       asOfDate,
       respId,
       agencyCode,
-      loan,
-      actionType, 
-      geography,
-      denial,
+      loanType,
+      propertyType,
+      purpose,
+      occupancy,
+      amount,
+      actionType,
+      msa,
+      state,
+      county,
+      tract,
+      fips,
+      reason1,
+      reason2,
+      reason3,
       editStatus,
-      preapprovals,
-      applicant,
+      preApprovals,
+      ethnicity,
+      coEthnicity,
+      race1,
+      race2,
+      race3,
+      race4,
+      race5,
+      coRace1,
+      coRace2,
+      coRace3,
+      coRace4,
+      coRace5,
+      sex,
+      coSex,
       purchaserType, 
       rateSpread,
       hoepaStatus, 

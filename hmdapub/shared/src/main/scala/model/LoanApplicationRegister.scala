@@ -1,40 +1,27 @@
 package model
 
+import upickle._
+
 case class LoanApplicationRegister(
   asOfDate: Int,
   respondentId: String,
   agencyCode: Int,
-  loan: Loan,
-  actionType: Int,
-  geography: Geography, 
-  denial: Denial,
-  editStatus: String,
-  preapprovals: Int,
-  applicant: Applicant,
-  purchaserType: Int,
-  rateSpread: String,
-  hoepaStatus: Int, 
-  lienStatus: Int,
-  sequenceNumber: String)
-
-case class Loan(
   loanType: Int,
   propertyType: Int,
   purpose: Int,
   occupancy: Int,
-  amount: String)
-
-case class Geography(
+  amount: String,
+  actionType: Int,
   msa: String,
   state: String,
   county: String,
   tract: String,
-  fips: String) {
-    require(fips.length == 11, 
-      "Census Tract FIPS code must be 11 characters long")
-  }
-
-case class Applicant(
+  fips: String,
+  reason1: String,
+  reason2: String,
+  reason3: String,
+  editStatus: String,
+  preApprovals: Int,
   ethnicity: Int,
   coEthnicity: Int,
   race1: Int,
@@ -48,9 +35,138 @@ case class Applicant(
   coRace4: String,
   coRace5: String,
   sex: Int,
-  coSex: Int)
+  coSex: Int,
+  purchaserType: Int,
+  rateSpread: String,
+  hoepaStatus: Int, 
+  lienStatus: Int,
+  sequenceNumber: String)
 
-case class Denial(
-  reason1: String,
-  reason2: String,
-  reason3: String)
+object LoanApplicationRegister {
+  implicit val larWriter = upickle.Writer[LoanApplicationRegister] {
+    case t => Js.Obj(
+        ("asOfDate",Js.Num(t.asOfDate)),
+        ("respondentId", Js.Str(t.respondentId)),
+        ("agencyCode",Js.Num(t.agencyCode)),
+        ("loanType",Js.Num(t.loanType)),
+        ("propertyType",Js.Num(t.propertyType)),
+        ("purpose",Js.Num(t.purpose)),
+        ("occupancy",Js.Num(t.occupancy)),
+        ("amount",Js.Str(t.amount)),
+        ("actionType",Js.Num(t.actionType)),
+        ("msa",Js.Str(t.msa)),
+        ("state",Js.Str(t.state)),
+        ("county",Js.Str(t.county)),
+        ("tract",Js.Str(t.tract)),
+        ("fips",Js.Str(t.fips)),
+        ("reason1",Js.Str(t.reason1)),
+        ("reason2",Js.Str(t.reason2)),
+        ("reason3",Js.Str(t.reason3)),
+        ("editStatus",Js.Str(t.editStatus)),
+        ("preApprovals",Js.Num(t.preApprovals)),
+        ("ethnicity",Js.Num(t.ethnicity)),
+        ("coEthnicity",Js.Num(t.ethnicity)),
+        ("race1",Js.Num(t.race1)),
+        ("race2",Js.Str(t.race2)),
+        ("race3",Js.Str(t.race3)),
+        ("race4",Js.Str(t.race4)),
+        ("race5",Js.Str(t.race5)),
+        ("coRace1",Js.Num(t.coRace1)),
+        ("coRace2",Js.Str(t.coRace2)),
+        ("coRace3",Js.Str(t.coRace3)),
+        ("coRace4",Js.Str(t.coRace4)),
+        ("coRace5",Js.Str(t.coRace5)),
+        ("sex",Js.Num(t.sex)),
+        ("coSex",Js.Num(t.coSex)),
+        ("purchaserType",Js.Num(t.purchaserType)),
+        ("rateSpread",Js.Str(t.rateSpread)),
+        ("hoepaStatus",Js.Num(t.hoepaStatus)),
+        ("lienStatus",Js.Num(t.lienStatus)),
+        ("sequenceNumber",Js.Str(t.sequenceNumber))
+    )
+  }
+
+  implicit val larReader = upickle.Reader[LoanApplicationRegister] {
+    case Js.Obj(
+      asOfDate,
+      respondentId,
+      agencyCode,
+      loanType,
+      propertyType,
+      purpose,
+      occupancy,
+      amount,
+      actionType,
+      msa,
+      state,
+      county,
+      tract,
+      fips,
+      reason1,
+      reason2,
+      reason3,
+      editStatus,
+      preApprovals,
+      ethnicity,
+      coEthnicity,
+      race1,
+      race2,
+      race3,
+      race4,
+      race5,
+      coRace1,
+      coRace2,
+      coRace3,
+      coRace4,
+      coRace5,
+      sex,
+      coSex,
+      purchaserType,
+      rateSpread,
+      hoepaStatus,
+      lienStatus,
+      sequenceNumber) =>
+       LoanApplicationRegister(
+         asOfDate._2.value.toString.toDouble.toInt,
+         respondentId._2.value.toString,
+         agencyCode._2.value.toString.toDouble.toInt,
+         loanType._2.value.toString.toDouble.toInt,
+         propertyType._2.value.toString.toDouble.toInt,
+         purpose._2.value.toString.toDouble.toInt,
+         occupancy._2.value.toString.toDouble.toInt,
+         amount._2.value.toString,
+         actionType._2.value.toString.toDouble.toInt,
+         msa._2.value.toString,
+         state._2.value.toString,
+         county._2.value.toString,
+         tract._2.value.toString,
+         fips._2.value.toString,
+         reason1._2.value.toString,
+         reason2._2.value.toString,
+         reason3._2.value.toString,
+         editStatus._2.value.toString,
+         preApprovals._2.value.toString.toDouble.toInt,
+         ethnicity._2.value.toString.toDouble.toInt,
+         coEthnicity._2.value.toString.toDouble.toInt,
+         race1._2.value.toString.toDouble.toInt,
+         race2._2.value.toString,
+         race3._2.value.toString,
+         race4._2.value.toString,
+         race5._2.value.toString,
+         coRace1._2.value.toString.toDouble.toInt,
+         coRace2._2.value.toString,
+         coRace3._2.value.toString,
+         coRace4._2.value.toString,
+         coRace5._2.value.toString,
+         sex._2.value.toString.toDouble.toInt,
+         coSex._2.value.toString.toDouble.toInt,
+         purchaserType._2.value.toString.toDouble.toInt,
+         rateSpread._2.value.toString,
+         hoepaStatus._2.value.toString.toDouble.toInt,
+         lienStatus._2.value.toString.toDouble.toInt,
+         sequenceNumber._2.value.toString
+       )
+  }
+
+
+}
