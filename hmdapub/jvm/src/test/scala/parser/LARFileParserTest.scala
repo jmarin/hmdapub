@@ -12,6 +12,7 @@ object LARFileParserTest extends TestSuite {
     lines.foreach { line =>
       val lar = LARParser(line) 
       assert(lar.asOfDate == 2007)
+      assert(lar.agencyCode == 1)
     }
     source.close()
 
